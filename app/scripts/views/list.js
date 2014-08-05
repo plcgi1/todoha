@@ -31,7 +31,10 @@
             }
             var markup = Mustache.render(this.template, { tasks:  data });
             var el = $(this.el);
-            el.html(markup)   
+            el.html(markup)  ;
+            _.each(data,function(el,i,list){
+                $('select[task_id="'+el.id+'"]').val(el.status);
+            });
         },
         remove : function(evt){
             var el = $(evt.target);
@@ -44,7 +47,9 @@
             this.status = 'warning';
             this.router.navigate('filter/'+this.status);
             this.router.views.nav.set_active(this.status);
+            this.render(this.status);
             $(this.el).find('.list:first').before(this.item_template);
+            
         },
         save : function(evt){
             var val = $(evt.target).prev().children()[0].value;
@@ -60,9 +65,10 @@
             var par = el.parent().parent();
             par.removeClass('alert-danger alert-success alert-warning');
             par.addClass('alert-'+status);
-            //this.render(model.attributes.status);
+            
             this.router.navigate('filter/'+status);
             this.router.views.nav.set_active(status);
+            this.render(status);
         }
     });
     var v = new View();
