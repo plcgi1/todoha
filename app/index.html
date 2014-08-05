@@ -1,0 +1,119 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Todoha</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="styles/main.css">
+        <!-- endbuild -->
+        <!-- build:js scripts/vendor/modernizr.js -->
+        <script src="bower_components/modernizr/modernizr.js"></script>
+        <!-- endbuild -->
+    </head>
+    <body>
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+
+        <div class="container">
+            <div class="header">
+               
+                <h2 class="text-muted">Todoha</h3>
+            </div>
+
+            <div class="row">
+                
+                <div class="col-md-12">
+                    <div class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top" role="complementary">
+                        <ul class="nav nav-pills" id="nav">
+                            <li><a href="#filter/warning">Ожидаем</a></li>
+                            <li><a href="#filter/danger">В процессе</a></li>
+                            <li><a href="#filter/success">Готово</a></li>
+                            <li><a href="#filter/all">Все</a></li>
+                    </div>
+                </div>
+                <div class="col-md-12" id="content"></div>
+            </div>
+
+            <div class="footer">
+                <p>&#x2665; from harper</p>
+            </div>
+        </div>
+
+        <script id="listTpl" type="text/html">
+            <div class="col-md-12"><span class="glyphicon glyphicon-plus pull-right add" title="Добавить"></span></div>
+                <br/><br/>
+            <div class="list">                
+                {{#tasks}}
+                <div class="alert alert-{{status}}" role="alert"><span class="change">{{task}}</span>
+                    <span class="pull-right">                          
+                        <span class="glyphicon glyphicon-minus pull-right remove" task_id="{{id}}"></span>
+                    </span>
+                    <span class="pull-right" >
+                        <select class="change_status" task_id="{{id}}">
+                            <option value="warning">Ждем</option>
+                            <option value="danger">В процессе</option>
+                            <option value="success">Готово</option>
+                        </select>
+                    </span>
+                    
+                </div>
+                {{/tasks}}
+            </div>
+        </script>
+        
+        <script id="itemTpl" type="text/html">
+            <div class="alert alert-{{status}}" role="alert">
+                <span class="change col-md-10">
+                    <input type="text" class="form-control task-content" placeholder="Введите текст задачи">                    
+                </span>
+                <button type="button" class="btn btn-info save">OK</button>
+                <span class="pull-right"><span class="glyphicon glyphicon-minus pull-right remove"></span></span>
+            </div>
+        </script>
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script>
+
+        <!-- build:js scripts/vendor.js -->
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/underscore/underscore.js"></script>
+        <script src="bower_components/backbone/backbone.js"></script>
+        <script src="bower_components/backbone-localstorage/backbone-localstorage.js"></script>
+        <script src="bower_components/mustache/mustache.js"></script>
+        <!-- endbuild -->
+
+        <!-- build:js scripts/plugins.js -->
+        <script src="bower_components/sass-bootstrap/js/affix.js"></script>
+        <script src="bower_components/sass-bootstrap/js/alert.js"></script>
+        <script src="bower_components/sass-bootstrap/js/dropdown.js"></script>
+        <script src="bower_components/sass-bootstrap/js/tooltip.js"></script>
+        <script src="bower_components/sass-bootstrap/js/modal.js"></script>
+        <script src="bower_components/sass-bootstrap/js/transition.js"></script>
+        <script src="bower_components/sass-bootstrap/js/button.js"></script>
+        <script src="bower_components/sass-bootstrap/js/popover.js"></script>
+        <script src="bower_components/sass-bootstrap/js/carousel.js"></script>
+        <script src="bower_components/sass-bootstrap/js/scrollspy.js"></script>
+        <script src="bower_components/sass-bootstrap/js/collapse.js"></script>
+        <script src="bower_components/sass-bootstrap/js/tab.js"></script>
+        <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/main.js -->
+        <script src="scripts/models/tasks.js"></script>
+        <script src="scripts/views/nav.js"></script>
+        <script src="scripts/views/list.js"></script>
+        <script src="scripts/main.js"></script>
+        <!-- endbuild -->
+</body>
+</html>

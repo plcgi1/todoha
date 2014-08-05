@@ -1,0 +1,12 @@
+{
+  "generator-backbone": {
+    "appPath": "app",
+    "appName": "Todoha",
+    "coffee": false,
+    "testFramework": "mocha",
+    "templateFramework": "mustache",
+    "compassBootstrap": true,
+    "includeRequireJS": false
+  },
+  "generator-mocha": {}
+}
