@@ -1,7 +1,7 @@
 /*global Todoha, $*/
 
 ;(function(){
-    
+    // роутер для показа задач по состояниям
     var Router = Backbone.Router.extend({
         routes : {
             "filter/:route" : "filter"
@@ -32,6 +32,4 @@
     });
     status_view.router = router;
 })();
-$(document).ready(function(){
-    
-});
+
