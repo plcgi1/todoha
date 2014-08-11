@@ -1,4 +1,4 @@
-///*global Todoha, Backbone, JST*/
+/*Главная вьюха приложения*/
 
 ;(function(){
 	'use strict';
@@ -7,13 +7,18 @@
 
     var View = Backbone.View.extend({
         el : $('#content'),
+        // шаблон списка задач
         template: $('#listTpl').html(),
+        // статус по умолчанию
         status: 'waiting',
         events: {
+            // удаление таска
             'click .remove' : 'remove',
-            'dblclick .change' : 'change',
+            // Добавить таск
             'click .add' : 'add',
+            // сохранение данных таска
             'click .save' : 'save',
+            // изменение статуса таска
             'change .change_status' : 'change_status'
         },
         initialize: function () {
@@ -22,6 +27,7 @@
         },
         render : function(status){
             this.status = status;
+            // достаем данные из хранилища
             var data = this.model.fetch();
             if (status === 'all') {
                 data = this.model.toJSON();
@@ -29,6 +35,7 @@
             else {
                 data = _.where(this.model.toJSON(),{ status : status });
             }
+            // рендерим шаблон
             var markup = Mustache.render(this.template, { tasks:  data });
             var el = $(this.el);
             el.html(markup)  ;
@@ -36,6 +43,7 @@
                 $('select[task_id="'+el.id+'"]').val(el.status);
             });
         },
+        // удаление таска из хранилища и из памяти
         remove : function(evt){
             var el = $(evt.target);
             var id = el.attr('task_id');
@@ -43,6 +51,7 @@
             this.model.remove_item(removed);
             el.parent().parent().remove();
         },
+        // показвыаем gui для добавления задачи
         add: function(evt){
             this.status = 'warning';
             this.router.navigate('filter/'+this.status);
@@ -51,12 +60,14 @@
             $(this.el).find('.list:first').before(this.item_template);
             
         },
+        // сохранение данных задачи
         save : function(evt){
             var val = $(evt.target).prev().children()[0].value;
             
             this.model.add_item({ task : val, status : this.status});
             this.render(this.status);
         },
+        // изменение статуса задачи
         change_status : function(evt){
             var el = $(evt.target);
             var status = el.val();
@@ -72,6 +83,7 @@
         }
     });
     var v = new View();
+    // инициаоизация объекта задачи
     window.views.List.initialize = function(opts){
         v.model = opts.model;
         return v;
