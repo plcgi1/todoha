@@ -23,7 +23,9 @@
         },
         initialize: function () {
             _.bindAll(this,'remove','add','save','change_status');
-            this.item_template = $('#itemTpl').html();            
+            this.item_template = $('#itemTpl').html();
+			
+			return;
         },
         render : function(status){
             this.status = status;
@@ -35,7 +37,9 @@
             else {
                 data = _.where(this.model.toJSON(),{ status : status });
             }
-            // рендерим шаблон
+            // кешируем шаблон
+			Mustache.parse(this.template);
+			// рендерим шаблон
             var markup = Mustache.render(this.template, { tasks:  data });
             var el = $(this.el);
             el.html(markup)  ;
