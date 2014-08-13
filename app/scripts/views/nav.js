@@ -1,3 +1,4 @@
+/* представление фильтров статусов тасков */
 ;(function(){
 	'use strict';
     window.views = window.views || {};    
@@ -5,6 +6,7 @@
 
     var View = Backbone.View.extend({
         el : $('#nav'),
+		// установка класса active для пунктов меню
         set_active: function(route){
             var last_active = $(this.el).find('li.active:first');
             last_active.removeClass('active');
