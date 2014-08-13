@@ -1,5 +1,6 @@
 ;(function(){
     'use strict';
+    // метод вызывается всегда - когда модели нужно сохранить данные на серваке - в данном случае в localstorage
     Backbone.sync = function(method, model, options) {
         var resp;
         var store = model.localStorage || model.collection.localStorage;
@@ -38,21 +39,26 @@
     
     var Collection = Backbone.Collection.extend({
         model : Model,
+        // таски сохраняются в localstorage
         localStorage: new Backbone.LocalStorage('todoha'),
         add_item: function(hash){
             var last = this.length;
             hash.id = guid();
             this.add(hash);
+            // сохраняем данные в localstorage
             this.sync('create', this, { model : hash });
         },
         remove_item: function(removed){
             removed = this.remove(removed);
+            // удаляем данные из localstorage
             this.sync('delete', this, { model : removed });
         },
         change_item: function(opts){
             var model = this.get(opts.id);
+            // меняем статус у таска
             model.attributes.status = opts.status;
             this.set(model);
+            // сохраняем данные в localstorage
             this.sync('update', this, { model : model } );
         }
     });
