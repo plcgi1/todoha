@@ -1,6 +1,8 @@
 ;(function(){
     'use strict';
-    // метод вызывается всегда - когда модели нужно сохранить данные на серваке - в данном случае в localstorage
+
+    // метод вызывается всегда - когда модель необходимо сохранить на сервере
+    // у нас он тут переопределен - для использования localstorage
     Backbone.sync = function(method, model, options) {
         var resp;
         var store = model.localStorage || model.collection.localStorage;

@@ -6,6 +6,7 @@
     window.views.List = window.views.List || {};
 
     var View = Backbone.View.extend({
+        // главный элемент вьюхи - в котором отрисовывается контент
         el : $('#content'),
         // шаблон списка задач
         template: $('#listTpl').html(),
@@ -23,7 +24,8 @@
         },
         initialize: function () {
             _.bindAll(this,'remove','add','save','change_status');
-            this.item_template = $('#itemTpl').html();
+            // добавляем шаблон для отрисовки логики добавления таска
+            this.item_template = $('#itemTpl').html();            
 			
 			return;
         },
@@ -31,18 +33,22 @@
             this.status = status;
             // достаем данные из хранилища
             var data = this.model.fetch();
+            
             if (status === 'all') {
+                // тут выведутся все таски
                 data = this.model.toJSON();
             }
             else {
                 data = _.where(this.model.toJSON(),{ status : status });
             }
             // кешируем шаблон
+            Mustache.parse(this.template);
+            // рендерим шаблон
 			Mustache.parse(this.template);
-			// рендерим шаблон
             var markup = Mustache.render(this.template, { tasks:  data });
             var el = $(this.el);
             el.html(markup)  ;
+            // устанавливаем значение статусов для каждого таска
             _.each(data,function(el,i,list){
                 $('select[task_id="'+el.id+'"]').val(el.status);
             });

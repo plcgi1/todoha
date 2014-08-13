@@ -13,6 +13,7 @@
             this.defaultRoute = 'waiting';
             Backbone.history.start();
         },
+       // вывод отфильтрованных по состоянию тасков
         // главный фильтр - выводит таски только по статусу
         filter: function(route){
             if(location.hash){
